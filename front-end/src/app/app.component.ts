@@ -19,9 +19,13 @@ export class AppComponent implements OnInit{
     ) {}
 
   ngOnInit() {
-    this.service.listar().subscribe(todoList => this.todos = todoList)
+    this.listarTodos()
 
-  }  
+  } 
+  
+  listarTodos(){
+    this.service.listar().subscribe(todoList => this.todos = todoList)
+  }
 
   submit(){
     console.log(this.form.value)
@@ -33,4 +37,19 @@ export class AppComponent implements OnInit{
         this.form.reset() 
       })
   } 
+
+  delete(todo: Todo) {
+    this.service.deletar(todo.id).subscribe({
+      next: (response) => this.listarTodos() 
+    })
+  }
+
+  concluir(todo: Todo) {
+    this.service.concluir(todo.id).subscribe({
+      next: (todoAtualizado) => {
+        todo.concluido = todoAtualizado.concluido
+        todo.dataConcluido = todoAtualizado.dataConcluido
+      } 
+    })
+  }
 }
