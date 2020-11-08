@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
+import { Todo } from './todo';
 import { TodoService} from './todo.service'
 
 @Component({
@@ -8,6 +9,8 @@ import { TodoService} from './todo.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  todos: Todo[] = []
   form: FormGroup = new FormGroup({
     descricao : new FormControl('')
   })
@@ -20,6 +23,9 @@ export class AppComponent {
     const todo: Todo = { ...this.form.value }
     this.service
       .salvar(todo)
-      .subscribe(todo => console.log(todo))
+      .subscribe(todo => {
+        this.todos.push(todo)
+        this.form.reset() 
+      })
   } 
 }
