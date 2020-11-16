@@ -21,7 +21,7 @@ import com.jadson.curso.angular.repository.TodoRepository;
 
 @RestController
 @RequestMapping("/api/todos")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("https://jadson76.github.io/")
 public class TodoController {
 	
 	@Autowired
